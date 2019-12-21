@@ -1,0 +1,3593 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alkemi - Switch Board Service | API Reference</title>
+    <link rel="stylesheet" href="stylesheets/foundation.min.css" />
+    <link rel="stylesheet" href="stylesheets/spectacle.min.css" />
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- <script src="javascripts/foundation.js"></script> -->
+    <script src="javascripts/spectacle.min.js"></script>
+  </head>
+  <body id="spectacle">
+    <div id="page" class="drawer-layout drawer-slide-right-large">
+      <div id="sidebar">
+        <button class="close-button" aria-label="Close menu" type="button" data-drawer-close>
+          <span aria-hidden="true">×</span>
+        </button>
+        <nav id="nav" role="navigation">
+          <h5>Topics</h5>
+          <a href="#introduction">Introduction</a>
+          <a href="#authentication">Authentication</a>
+          <h5>Operations</h5>
+          <section>
+            <a href="#tag-Exchange">Exchange</a>
+            <ul>
+              <li>
+                <a href="#operation--v1-action-authorize_exchange-get"> Authorizes an exchange </a>
+              </li>
+              <li>
+                <a href="#operation--v1-action-create_exchange-post"> Create a new exchange entry. </a>
+              </li>
+              <li>
+                <a href="#operation--v1-action-refresh_exchange_access_token-get"> Refreshes an exchanges access token </a>
+              </li>
+              <li>
+                <a href="#operation--v1-action-remove_exchange-get"> Removes a existing exchange entry. </a>
+              </li>
+              <li>
+                <a href="#operation--v1-action-retrieve_all_exchanges-get"> Retrieve all exchanges . </a>
+              </li>
+              <li>
+                <a href="#operation--v1-action-retrieve_exchange_by_temp_token-post"> Retrieve exchange info by temp token . </a>
+              </li>
+              <li>
+                <a href="#operation--v1-health-get"> Validates that service is up and running </a>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <a href="#tag-TradePair">TradePair</a>
+            <ul>
+              <li>
+                <a href="#operation--v1-action-create_exchange_trade_pair_association-post"> Associates a exchange and trade pair </a>
+              </li>
+              <li>
+                <a href="#operation--v1-action-create_trade_pair-post"> Create a trade pair entry. </a>
+              </li>
+              <li>
+                <a href="#operation--v1-action-remove_exchange_trade_pair_association-post"> Removes a exchange and trade pair association </a>
+              </li>
+              <li>
+                <a href="#operation--v1-action-remove_trade_pair-get"> Removes a trade pair entry. </a>
+              </li>
+              <li>
+                <a href="#operation--v1-action-retrieve_all_trade_pairs-get"> Retrieve all trade pairs . </a>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <a href="#tag-Service">Service</a>
+            <ul>
+              <li>
+                <a href="#operation--v1-action-create_service_key-post"> Create a service key entry . </a>
+              </li>
+              <li>
+                <a href="#operation--v1-action-remove_service_key-get"> Removes a service key entry </a>
+              </li>
+              <li>
+                <a href="#operation--v1-action-retrieve_all_service_keys-get"> Retrieve all service key entries . </a>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <a href="#tag-Public">Public</a>
+            <ul>
+              <li>
+                <a href="#operation--v1-generate_new_temp_token-post"> Generate a new temp token for a exchange </a>
+              </li>
+              <li>
+                <a href="#operation--v1-login-post"> Login and receive JWT token. </a>
+              </li>
+              <li>
+                <a href="#operation--v1-revoke_temp_access_token-post"> Revokes an exchanges temp access token </a>
+              </li>
+              <li>
+                <a href="#operation--v1-validate_access-post"> Validates exchanges and service credentials </a>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <a href="#tag-Health-Check">Health Check</a>
+            <ul>
+              <li>
+                <a href="#operation--v1-health-get"> Validates that service is up and running </a>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <a href="#tag-Service-Endpoints">Service-Endpoints</a>
+            <ul>
+              <li>
+                <a href="#operation--v1-service-service_retrieve_all_exchanges-post"> Retrieve all exchanges . </a>
+              </li>
+              <li>
+                <a href="#operation--v1-service-service_retrieve_all_trade_pairs-post"> Retrieve all trade pair entries . </a>
+              </li>
+            </ul>
+          </section>
+          <h5>Schema Definitions</h5>
+          <a href="#definition-forms.AccessCredentialsForm"> forms.AccessCredentialsForm </a>
+          <a href="#definition-forms.CreateExchangeForm"> forms.CreateExchangeForm </a>
+          <a href="#definition-forms.CreateServiceForm"> forms.CreateServiceForm </a>
+          <a href="#definition-forms.CreateTradePairForm"> forms.CreateTradePairForm </a>
+          <a href="#definition-forms.ExchangeTradePairAssociationForm"> forms.ExchangeTradePairAssociationForm </a>
+          <a href="#definition-forms.LoginForm"> forms.LoginForm </a>
+          <a href="#definition-models.ExchangeModel"> models.ExchangeModel </a>
+          <a href="#definition-models.ServiceKeyModel"> models.ServiceKeyModel </a>
+          <a href="#definition-models.TradePairModel"> models.TradePairModel </a>
+          <a href="#definition-responses.AllExchangesResponse"> responses.AllExchangesResponse </a>
+          <a href="#definition-responses.AllServiceKeysResponse"> responses.AllServiceKeysResponse </a>
+          <a href="#definition-responses.AllTradePairsResponse"> responses.AllTradePairsResponse </a>
+          <a href="#definition-responses.ExchangeInfoResponse"> responses.ExchangeInfoResponse </a>
+          <a href="#definition-responses.HealthCheckResponse"> responses.HealthCheckResponse </a>
+          <a href="#definition-responses.LoginResponse"> responses.LoginResponse </a>
+          <a href="#definition-responses.ServiceKeyResponse"> responses.ServiceKeyResponse </a>
+          <a href="#definition-responses.SuccessFailureResponse"> responses.SuccessFailureResponse </a>
+        </nav>
+      </div>
+      <div id="docs" class="row collapse expanded drawer" data-drawer>
+        <button class="floating-menu-icon" type="button" data-drawer-slide="right">
+          <span class="hamburger"></span>
+        </button>
+        <div class="example-box doc-content"></div>
+        <article>
+          <h1 class="doc-title">Alkemi - Switch Board Service
+            <span>API Reference</span>
+          </h1>
+          <div id="introduction" data-traverse-target="introduction">
+            <div class="doc-row">
+              <div class="doc-copy">
+                <p>This service manages the authorization for exchanges and trade pairs</p>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>API Endpoint</h5>
+                  <!-- <div class="hljs"> --><pre><code>http://https://switchboard-api.alkemi.tech/</code></pre>
+                  <!-- </div> -->
+                  <h5>Contact:
+                    <a href="mailto:dev@alkemi.ai">dev@alkemi.ai</a>
+                  </h5>
+                  <h5>Version:
+                    <span>1.0</span>
+                  </h5>
+                </section>
+              </div>
+            </div>
+          </div>
+          <!-- <h1 id="security" data-traverse-target="security">Security</h1> -->
+          <h1 id="authentication" data-traverse-target="authentication">Authentication</h1>
+          <div id="security-definition-ApiKeyAuth" class="panel">
+            <div class="doc-row">
+              <div class="doc-copy">
+                <h3 class="security-definition-title">
+                  <span class="security-name">ApiKeyAuth</span>
+                  <span class="swagger-security-definition-apiKey"></span>
+                </h3>
+                <section class="swagger-security-definition-properties">
+                  <div class="prop-row security-definition-property">
+                    <div class="prop-name">
+                      <div class="prop-title security-definition-property-name">type</div>
+                    </div>
+                    <div class="prop-value security-definition-property-type"> apiKey </div>
+                  </div>
+                  <div class="prop-row security-definition-property">
+                    <div class="prop-name">
+                      <div class="prop-title security-definition-property-name">name</div>
+                    </div>
+                    <div class="prop-value security-definition-property-type"> Authorization </div>
+                  </div>
+                  <div class="prop-row security-definition-property">
+                    <div class="prop-name">
+                      <div class="prop-title security-definition-property-name">in</div>
+                    </div>
+                    <div class="prop-value security-definition-property-type"> header </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <h1 id="tag-Exchange" class="swagger-summary-tag" data-traverse-target="tag-Exchange">Exchange</h1>
+          <div id="operation--v1-action-authorize_exchange-get" class="operation panel" data-traverse-target="operation--v1-action-authorize_exchange-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Exchange">Exchange</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Authorizes an exchange</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/v1/action/authorize_exchange</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Authorizes an exchange</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">Authorization:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Authentication header</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">exchangeUUID:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in query </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Exchange UUID</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">exchangeAuthorized:
+                        <span class="prop-type">
+                          <span class="json-property-type">boolean</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in query </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Should the exchange be authorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/responses.SuccessFailureResponse">responses.SuccessFailureResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--v1-action-create_exchange-post" class="operation panel" data-traverse-target="operation--v1-action-create_exchange-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Exchange">Exchange</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Create a new exchange entry.</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/v1/action/create_exchange</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Create a new exchange entry.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="json-schema-ref-object">
+                          <a class="json-schema-ref" href="#/definitions/forms.CreateExchangeForm">forms.CreateExchangeForm</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Add Exchange Form</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">Authorization:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Authentication header</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Content-Types:
+                    <span>application/json</span>
+                  </h5>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/responses.ExchangeInfoResponse">responses.ExchangeInfoResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;exchange&quot;</span>: {
+    <span class="hljs-attr">&quot;access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;authorized&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+    <span class="hljs-attr">&quot;exchange_authorized_trade_pairs&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;base_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;secondary_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+      }
+    ],
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;temp_access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+  },
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--v1-action-refresh_exchange_access_token-get" class="operation panel" data-traverse-target="operation--v1-action-refresh_exchange_access_token-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Exchange">Exchange</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Refreshes an exchanges access token</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/v1/action/refresh_exchange_access_token</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Refreshes an exchanges access token</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">Authorization:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Authentication header</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">exchangeUUID:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in query </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Exchange UUID</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/responses.ExchangeInfoResponse">responses.ExchangeInfoResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;exchange&quot;</span>: {
+    <span class="hljs-attr">&quot;access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;authorized&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+    <span class="hljs-attr">&quot;exchange_authorized_trade_pairs&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;base_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;secondary_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+      }
+    ],
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;temp_access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+  },
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--v1-action-remove_exchange-get" class="operation panel" data-traverse-target="operation--v1-action-remove_exchange-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Exchange">Exchange</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Removes a existing exchange entry.</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/v1/action/remove_exchange</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Removes a existing exchange entry</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">Authorization:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Authentication header</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">exchangeUUID:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in query </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Exchange UUID to Remove</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/responses.SuccessFailureResponse">responses.SuccessFailureResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--v1-action-retrieve_all_exchanges-get" class="operation panel" data-traverse-target="operation--v1-action-retrieve_all_exchanges-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Exchange">Exchange</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Retrieve all exchanges .</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/v1/action/retrieve_all_exchanges</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Retrieves all exchanges and exchange information</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">Authorization:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Authentication header</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/responses.AllExchangesResponse">responses.AllExchangesResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;exchanges&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;authorized&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+      <span class="hljs-attr">&quot;exchange_authorized_trade_pairs&quot;</span>: [
+        {
+          <span class="hljs-attr">&quot;base_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;secondary_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+        }
+      ],
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;temp_access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--v1-action-retrieve_exchange_by_temp_token-post" class="operation panel" data-traverse-target="operation--v1-action-retrieve_exchange_by_temp_token-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Exchange">Exchange</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Retrieve exchange info by temp token .</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/v1/action/retrieve_exchange_by_temp_token</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Retrieves all exchanges and exchange information</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="json-schema-ref-object">
+                          <a class="json-schema-ref" href="#/definitions/forms.AccessCredentialsForm">forms.AccessCredentialsForm</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Exchange Access Credentials</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Content-Types:
+                    <span>application/json</span>
+                  </h5>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/responses.ExchangeInfoResponse">responses.ExchangeInfoResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;exchange&quot;</span>: {
+    <span class="hljs-attr">&quot;access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;authorized&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+    <span class="hljs-attr">&quot;exchange_authorized_trade_pairs&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;base_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;secondary_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+      }
+    ],
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;temp_access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+  },
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--v1-health-get" class="operation panel" data-traverse-target="operation--v1-health-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Exchange">Exchange</a>
+              <!--, -->
+              <a class="label" href="#tag-Health-Check">Health Check</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Validates that service is up and running</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/v1/health</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Health Check for service</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/responses.HealthCheckResponse">responses.HealthCheckResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;authenticationErrors&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+  <span class="hljs-attr">&quot;currentlyHealthy&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+  <span class="hljs-attr">&quot;databaseConnectionErrors&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <h1 id="tag-TradePair" class="swagger-summary-tag" data-traverse-target="tag-TradePair">TradePair</h1>
+          <div id="operation--v1-action-create_exchange_trade_pair_association-post" class="operation panel" data-traverse-target="operation--v1-action-create_exchange_trade_pair_association-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-TradePair">TradePair</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Associates a exchange and trade pair</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/v1/action/create_exchange_trade_pair_association</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Associates a exchange and trade pair</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="json-schema-ref-object">
+                          <a class="json-schema-ref" href="#/definitions/forms.ExchangeTradePairAssociationForm">forms.ExchangeTradePairAssociationForm</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Exchange Trade Pair Association</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">Authorization:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Authentication header</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Content-Types:
+                    <span>application/json</span>
+                  </h5>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;exchange_uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;trade_pair_uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/responses.SuccessFailureResponse">responses.SuccessFailureResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--v1-action-create_trade_pair-post" class="operation panel" data-traverse-target="operation--v1-action-create_trade_pair-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-TradePair">TradePair</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Create a trade pair entry.</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/v1/action/create_trade_pair</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Create a trade pair entry.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="json-schema-ref-object">
+                          <a class="json-schema-ref" href="#/definitions/forms.CreateTradePairForm">forms.CreateTradePairForm</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Trade Pair Form</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">Authorization:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Authentication header</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Content-Types:
+                    <span>application/json</span>
+                  </h5>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;base_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;secondary_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/responses.SuccessFailureResponse">responses.SuccessFailureResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--v1-action-remove_exchange_trade_pair_association-post" class="operation panel" data-traverse-target="operation--v1-action-remove_exchange_trade_pair_association-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-TradePair">TradePair</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Removes a exchange and trade pair association</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/v1/action/remove_exchange_trade_pair_association</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Removes a exchange and trade pair association</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="json-schema-ref-object">
+                          <a class="json-schema-ref" href="#/definitions/forms.ExchangeTradePairAssociationForm">forms.ExchangeTradePairAssociationForm</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Exchange Trade Pair Association</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">Authorization:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Authentication header</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Content-Types:
+                    <span>application/json</span>
+                  </h5>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;exchange_uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;trade_pair_uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/responses.SuccessFailureResponse">responses.SuccessFailureResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--v1-action-remove_trade_pair-get" class="operation panel" data-traverse-target="operation--v1-action-remove_trade_pair-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-TradePair">TradePair</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Removes a trade pair entry.</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/v1/action/remove_trade_pair</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Removes a trade pair entry</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">Authorization:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Authentication header</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">tradePairUUID:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in query </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Trade Pair UUID</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/responses.SuccessFailureResponse">responses.SuccessFailureResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--v1-action-retrieve_all_trade_pairs-get" class="operation panel" data-traverse-target="operation--v1-action-retrieve_all_trade_pairs-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-TradePair">TradePair</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Retrieve all trade pairs .</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/v1/action/retrieve_all_trade_pairs</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Retrieves all trade pair entries</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">Authorization:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Authentication header</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/responses.AllTradePairsResponse">responses.AllTradePairsResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+  <span class="hljs-attr">&quot;trade_pairs&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;base_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;secondary_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+    }
+  ]
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <h1 id="tag-Service" class="swagger-summary-tag" data-traverse-target="tag-Service">Service</h1>
+          <div id="operation--v1-action-create_service_key-post" class="operation panel" data-traverse-target="operation--v1-action-create_service_key-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Service">Service</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Create a service key entry .</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/v1/action/create_service_key</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Creates a new service entry</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="json-schema-ref-object">
+                          <a class="json-schema-ref" href="#/definitions/forms.CreateServiceForm">forms.CreateServiceForm</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Add Exchange Form</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">Authorization:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Authentication header</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Content-Types:
+                    <span>application/json</span>
+                  </h5>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/responses.ServiceKeyResponse">responses.ServiceKeyResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;service_key&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;service_uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--v1-action-remove_service_key-get" class="operation panel" data-traverse-target="operation--v1-action-remove_service_key-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Service">Service</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Removes a service key entry</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/v1/action/remove_service_key</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Removes a service key entry</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">Authorization:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Authentication header</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">serviceKeyUUID:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in query </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Service Key UUID to Remove</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/responses.SuccessFailureResponse">responses.SuccessFailureResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--v1-action-retrieve_all_service_keys-get" class="operation panel" data-traverse-target="operation--v1-action-retrieve_all_service_keys-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Service">Service</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Retrieve all service key entries .</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/v1/action/retrieve_all_service_keys</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Retrieves all service key entries.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">Authorization:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Authentication header</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/responses.AllServiceKeysResponse">responses.AllServiceKeysResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;service_keys&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <h1 id="tag-Public" class="swagger-summary-tag" data-traverse-target="tag-Public">Public</h1>
+          <div id="operation--v1-generate_new_temp_token-post" class="operation panel" data-traverse-target="operation--v1-generate_new_temp_token-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Public">Public</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Generate a new temp token for a exchange</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/v1/generate_new_temp_token</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Generate a new temp token for a exchange</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="json-schema-ref-object">
+                          <a class="json-schema-ref" href="#/definitions/forms.AccessCredentialsForm">forms.AccessCredentialsForm</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Exchange Access Credentials</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Content-Types:
+                    <span>application/json</span>
+                  </h5>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/responses.ExchangeInfoResponse">responses.ExchangeInfoResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;exchange&quot;</span>: {
+    <span class="hljs-attr">&quot;access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;authorized&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+    <span class="hljs-attr">&quot;exchange_authorized_trade_pairs&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;base_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;secondary_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+      }
+    ],
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;temp_access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+  },
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--v1-login-post" class="operation panel" data-traverse-target="operation--v1-login-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Public">Public</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Login and receive JWT token.</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/v1/login</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Login endpoint to receive a JWT token to authorize against protected endpoints.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="json-schema-ref-object">
+                          <a class="json-schema-ref" href="#/definitions/forms.LoginForm">forms.LoginForm</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>User Credentials</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Content-Types:
+                    <span>application/json</span>
+                  </h5>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;password&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;username&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/responses.LoginResponse">responses.LoginResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+  <span class="hljs-attr">&quot;token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--v1-revoke_temp_access_token-post" class="operation panel" data-traverse-target="operation--v1-revoke_temp_access_token-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Public">Public</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Revokes an exchanges temp access token</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/v1/revoke_temp_access_token</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Revokes an exchanges temp access token</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="json-schema-ref-object">
+                          <a class="json-schema-ref" href="#/definitions/forms.AccessCredentialsForm">forms.AccessCredentialsForm</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Exchange Access Credentials</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Content-Types:
+                    <span>application/json</span>
+                  </h5>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/responses.SuccessFailureResponse">responses.SuccessFailureResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--v1-validate_access-post" class="operation panel" data-traverse-target="operation--v1-validate_access-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Public">Public</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Validates exchanges and service credentials</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/v1/validate_access</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Validates exchanges and service credentials</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="json-schema-ref-object">
+                          <a class="json-schema-ref" href="#/definitions/forms.AccessCredentialsForm">forms.AccessCredentialsForm</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Exchange Access Credentials</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Content-Types:
+                    <span>application/json</span>
+                  </h5>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/responses.SuccessFailureResponse">responses.SuccessFailureResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <h1 id="tag-Health-Check" class="swagger-summary-tag" data-traverse-target="tag-Health-Check">Health Check</h1>
+          <div id="operation--v1-health-get" class="operation panel" data-traverse-target="operation--v1-health-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Exchange">Exchange</a>
+              <!--, -->
+              <a class="label" href="#tag-Health-Check">Health Check</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Validates that service is up and running</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/v1/health</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Health Check for service</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/responses.HealthCheckResponse">responses.HealthCheckResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;authenticationErrors&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+  <span class="hljs-attr">&quot;currentlyHealthy&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+  <span class="hljs-attr">&quot;databaseConnectionErrors&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <h1 id="tag-Service-Endpoints" class="swagger-summary-tag" data-traverse-target="tag-Service-Endpoints">Service-Endpoints</h1>
+          <div id="operation--v1-service-service_retrieve_all_exchanges-post" class="operation panel" data-traverse-target="operation--v1-service-service_retrieve_all_exchanges-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Service-Endpoints">Service-Endpoints</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Retrieve all exchanges .</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/v1/service/service_retrieve_all_exchanges</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Retrieves all exchanges and exchange information</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="json-schema-ref-object">
+                          <a class="json-schema-ref" href="#/definitions/forms.AccessCredentialsForm">forms.AccessCredentialsForm</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Service Key Credentials</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Content-Types:
+                    <span>application/json</span>
+                  </h5>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/responses.AllExchangesResponse">responses.AllExchangesResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;exchanges&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;authorized&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+      <span class="hljs-attr">&quot;exchange_authorized_trade_pairs&quot;</span>: [
+        {
+          <span class="hljs-attr">&quot;base_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;secondary_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+        }
+      ],
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;temp_access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--v1-service-service_retrieve_all_trade_pairs-post" class="operation panel" data-traverse-target="operation--v1-service-service_retrieve_all_trade_pairs-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Service-Endpoints">Service-Endpoints</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Retrieve all trade pair entries .</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/v1/service/service_retrieve_all_trade_pairs</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Retrieves all trade pair entries</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="json-schema-ref-object">
+                          <a class="json-schema-ref" href="#/definitions/forms.AccessCredentialsForm">forms.AccessCredentialsForm</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Service Key Credentials</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Content-Types:
+                    <span>application/json</span>
+                  </h5>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/responses.AllExchangesResponse">responses.AllExchangesResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;exchanges&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;authorized&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+      <span class="hljs-attr">&quot;exchange_authorized_trade_pairs&quot;</span>: [
+        {
+          <span class="hljs-attr">&quot;base_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;secondary_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+        }
+      ],
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;temp_access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <h1>Schema Definitions</h1>
+          <div id="definition-forms.AccessCredentialsForm" class="definition panel" data-traverse-target="definition-forms.AccessCredentialsForm">
+            <h2 class="panel-title">
+              <a name="/definitions/forms.AccessCredentialsForm"></a>forms.AccessCredentialsForm: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="access_token">
+                      <span class="json-property-name">access_token:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="uuid">
+                      <span class="json-property-name">uuid:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-forms.CreateExchangeForm" class="definition panel" data-traverse-target="definition-forms.CreateExchangeForm">
+            <h2 class="panel-title">
+              <a name="/definitions/forms.CreateExchangeForm"></a>forms.CreateExchangeForm: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="name">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-forms.CreateServiceForm" class="definition panel" data-traverse-target="definition-forms.CreateServiceForm">
+            <h2 class="panel-title">
+              <a name="/definitions/forms.CreateServiceForm"></a>forms.CreateServiceForm: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="name">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-forms.CreateTradePairForm" class="definition panel" data-traverse-target="definition-forms.CreateTradePairForm">
+            <h2 class="panel-title">
+              <a name="/definitions/forms.CreateTradePairForm"></a>forms.CreateTradePairForm: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="base_asset">
+                      <span class="json-property-name">base_asset:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="name">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="secondary_asset">
+                      <span class="json-property-name">secondary_asset:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;base_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;secondary_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-forms.ExchangeTradePairAssociationForm" class="definition panel" data-traverse-target="definition-forms.ExchangeTradePairAssociationForm">
+            <h2 class="panel-title">
+              <a name="/definitions/forms.ExchangeTradePairAssociationForm"></a>forms.ExchangeTradePairAssociationForm: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="exchange_uuid">
+                      <span class="json-property-name">exchange_uuid:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="trade_pair_uuid">
+                      <span class="json-property-name">trade_pair_uuid:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;exchange_uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;trade_pair_uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-forms.LoginForm" class="definition panel" data-traverse-target="definition-forms.LoginForm">
+            <h2 class="panel-title">
+              <a name="/definitions/forms.LoginForm"></a>forms.LoginForm: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="password">
+                      <span class="json-property-name">password:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="username">
+                      <span class="json-property-name">username:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;password&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;username&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-models.ExchangeModel" class="definition panel" data-traverse-target="definition-models.ExchangeModel">
+            <h2 class="panel-title">
+              <a name="/definitions/models.ExchangeModel"></a>models.ExchangeModel: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="access_token">
+                      <span class="json-property-name">access_token:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="authorized">
+                      <span class="json-property-name">authorized:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="exchange_authorized_trade_pairs">
+                      <span class="json-property-name">exchange_authorized_trade_pairs:</span>
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/models.TradePairModel">models.TradePairModel</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/models.TradePairModel">models.TradePairModel</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                    <dt data-property-name="name">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="temp_access_token">
+                      <span class="json-property-name">temp_access_token:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="uuid">
+                      <span class="json-property-name">uuid:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;authorized&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+  <span class="hljs-attr">&quot;exchange_authorized_trade_pairs&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;base_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;secondary_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;temp_access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-models.ServiceKeyModel" class="definition panel" data-traverse-target="definition-models.ServiceKeyModel">
+            <h2 class="panel-title">
+              <a name="/definitions/models.ServiceKeyModel"></a>models.ServiceKeyModel: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="access_token">
+                      <span class="json-property-name">access_token:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="name">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="uuid">
+                      <span class="json-property-name">uuid:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-models.TradePairModel" class="definition panel" data-traverse-target="definition-models.TradePairModel">
+            <h2 class="panel-title">
+              <a name="/definitions/models.TradePairModel"></a>models.TradePairModel: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="base_asset">
+                      <span class="json-property-name">base_asset:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="name">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="secondary_asset">
+                      <span class="json-property-name">secondary_asset:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="uuid">
+                      <span class="json-property-name">uuid:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;base_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;secondary_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-responses.AllExchangesResponse" class="definition panel" data-traverse-target="definition-responses.AllExchangesResponse">
+            <h2 class="panel-title">
+              <a name="/definitions/responses.AllExchangesResponse"></a>responses.AllExchangesResponse: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="error_message">
+                      <span class="json-property-name">error_message:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="exchanges">
+                      <span class="json-property-name">exchanges:</span>
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/models.ExchangeModel">models.ExchangeModel</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/models.ExchangeModel">models.ExchangeModel</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                    <dt data-property-name="success">
+                      <span class="json-property-name">success:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;exchanges&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;authorized&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+      <span class="hljs-attr">&quot;exchange_authorized_trade_pairs&quot;</span>: [
+        {
+          <span class="hljs-attr">&quot;base_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;secondary_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+        }
+      ],
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;temp_access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-responses.AllServiceKeysResponse" class="definition panel" data-traverse-target="definition-responses.AllServiceKeysResponse">
+            <h2 class="panel-title">
+              <a name="/definitions/responses.AllServiceKeysResponse"></a>responses.AllServiceKeysResponse: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="error_message">
+                      <span class="json-property-name">error_message:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="service_keys">
+                      <span class="json-property-name">service_keys:</span>
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/models.ServiceKeyModel">models.ServiceKeyModel</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/models.ServiceKeyModel">models.ServiceKeyModel</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                    <dt data-property-name="success">
+                      <span class="json-property-name">success:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;service_keys&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-responses.AllTradePairsResponse" class="definition panel" data-traverse-target="definition-responses.AllTradePairsResponse">
+            <h2 class="panel-title">
+              <a name="/definitions/responses.AllTradePairsResponse"></a>responses.AllTradePairsResponse: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="error_message">
+                      <span class="json-property-name">error_message:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="success">
+                      <span class="json-property-name">success:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="trade_pairs">
+                      <span class="json-property-name">trade_pairs:</span>
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/models.TradePairModel">models.TradePairModel</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/models.TradePairModel">models.TradePairModel</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+  <span class="hljs-attr">&quot;trade_pairs&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;base_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;secondary_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+    }
+  ]
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-responses.ExchangeInfoResponse" class="definition panel" data-traverse-target="definition-responses.ExchangeInfoResponse">
+            <h2 class="panel-title">
+              <a name="/definitions/responses.ExchangeInfoResponse"></a>responses.ExchangeInfoResponse: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="error_message">
+                      <span class="json-property-name">error_message:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="exchange">
+                      <span class="json-property-name">exchange:</span>
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-object">
+                          <a class="json-schema-ref" href="#/definitions/models.ExchangeModel">models.ExchangeModel</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="success">
+                      <span class="json-property-name">success:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;exchange&quot;</span>: {
+    <span class="hljs-attr">&quot;access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;authorized&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+    <span class="hljs-attr">&quot;exchange_authorized_trade_pairs&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;base_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;secondary_asset&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+      }
+    ],
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;temp_access_token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+  },
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-responses.HealthCheckResponse" class="definition panel" data-traverse-target="definition-responses.HealthCheckResponse">
+            <h2 class="panel-title">
+              <a name="/definitions/responses.HealthCheckResponse"></a>responses.HealthCheckResponse: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="authenticationErrors">
+                      <span class="json-property-name">authenticationErrors:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="currentlyHealthy">
+                      <span class="json-property-name">currentlyHealthy:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="databaseConnectionErrors">
+                      <span class="json-property-name">databaseConnectionErrors:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;authenticationErrors&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+  <span class="hljs-attr">&quot;currentlyHealthy&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+  <span class="hljs-attr">&quot;databaseConnectionErrors&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-responses.LoginResponse" class="definition panel" data-traverse-target="definition-responses.LoginResponse">
+            <h2 class="panel-title">
+              <a name="/definitions/responses.LoginResponse"></a>responses.LoginResponse: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="error_message">
+                      <span class="json-property-name">error_message:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="success">
+                      <span class="json-property-name">success:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="token">
+                      <span class="json-property-name">token:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+  <span class="hljs-attr">&quot;token&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-responses.ServiceKeyResponse" class="definition panel" data-traverse-target="definition-responses.ServiceKeyResponse">
+            <h2 class="panel-title">
+              <a name="/definitions/responses.ServiceKeyResponse"></a>responses.ServiceKeyResponse: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="error_message">
+                      <span class="json-property-name">error_message:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="service_key">
+                      <span class="json-property-name">service_key:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="service_uuid">
+                      <span class="json-property-name">service_uuid:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="success">
+                      <span class="json-property-name">success:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;service_key&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;service_uuid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-responses.SuccessFailureResponse" class="definition panel" data-traverse-target="definition-responses.SuccessFailureResponse">
+            <h2 class="panel-title">
+              <a name="/definitions/responses.SuccessFailureResponse"></a>responses.SuccessFailureResponse: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="error_message">
+                      <span class="json-property-name">error_message:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="success">
+                      <span class="json-property-name">success:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;error_message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div class="doc-row no-margin">
+            <div class="doc-copy doc-separator">
+              <a class="powered-by" href="https://sourcey.com/spectacle">Documentation by
+                <span>Spectacle</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </body>
+</html>
