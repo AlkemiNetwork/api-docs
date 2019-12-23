@@ -1,32 +1,80 @@
-<html>
+<!doctype html>
+<html lang="en" class="no-js">
+
 <head>
-  <link type="text/css" src="css/style.css"/>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="canonical" href="https://project-alkemi.github.io/api-docs" />
+  <title>Alkemi Network - API Documentation</title>
+  <meta name="description" content="Alkemi Network - API Documentation - Core Services separate from services built on top of the Alkemi Protocol">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="script.js"></script>
 </head>
+
 <body>
-  <div class="container">
-    <div class="header">
-  <h1>
-    Alkemi Protocol
-  </h1>
-  <hr>
-  <h2>
-    Api Documentation
-  </h2>
-</div>
-<div class="content">
-<p>
-  <ul>
-    <li><a target="_blank" href="https://project-alkemi.github.io/api-docs/exchange-container-api">Exchange Container Service API</a></li>
-    <li><a target="_blank" href="https://project-alkemi.github.io/api-docs/dr-discovery-api">Data Relay Discovery Service API</a></li>
-    <li><a target="_blank" href="https://project-alkemi.github.io/api-docs/switchboard-api">Switchboard Service API</a></li>
-  </ul>
-</p>
-</div>
+  <header>
+    <div id="logo"><img src="assets/img/logo-lite.png">| API Documentation</div>
+    <nav>
+      <ul>
+        <li><a target="_blank" href="https://project-alkemi.github.io/api-docs/exchange-container-api">Exchange Container Service</a>
+        <li><a target="_blank" href="https://project-alkemi.github.io/api-docs/dr-discovery-api">Data Relay Discovery Service</a>
+        <li><a target="_blank" href="https://project-alkemi.github.io/api-docs/switchboard-api">Switchboard Service</a>
+      </ul>
+    </nav>
+  </header>
+  <section>
+    <strong>Core Services separate from services built on top of the alkemi protocol</strong>
+  </section>
+  <section id="pageContent">
+    <main role="main">
+      <article>
+        <h2>Exchange Container Service</h2>
+        <p>Facilitates the trade execution and data collection from the specified exchange back to the Alkemi Network.</p>
+
+        <h3>Container Data Provider:</h3>
+        <p> The CDP lives within the container. This service retrieves order book information and price data from the exchange it is connected to. It feeds this data back towards the Index Service and to the TES that lives within the container.
+          There is two ways for data to get into the CDP. The first being a listening Rest and Websocket port that will allow the exchanges to provide data directly to the CDP in a specific format we specify. The other method being we create
+          outbound connections to interact with the exchanges pre existing api’s. This data is then forwarded to the Index Server and the TES.</p>
+
+        <h3>Trade Execution Service:</h3>
+        <p>The TES lives within the container and facilitates the active trading that occurs. It contains a market making algo designed to utilize the Index price we set for the market alongside the order book information to facilitate trading. The
+          TES is also responsible for aggregating the trade information to be sent down to the ODR (Oracle Data Relay). </p>
+      </article>
+      <article>
+        <h2>Data Relay Discovery Service</h2>
+        <p>This service provides and facilitates data-relay service discovery for settlement and index data replication</p>
+        <p>The DR ( Data Relay) only has one function. This function is to relay the trade completion information to the currently completed oracles and the VWap index service. This is done by using either rest or WebSockets to facilitate the data
+          transfer. The Oracles will connect to the DR’s to collect this information. DR’s will be created as a microservice that way we can have multiple data relays available for redundancy to the oracles.</p>
+      </article>
+      <article>
+        <h2>Switchboard Service</h2>
+        <p>The switch board service maintains a running whitelist for every exchange on the alkemi network and the assets that are trading on it. The switchboard is operated by the alkemi team and is adjusted and modified as exchanges join the
+          network. When an exchange joins the network for the first time the switch board will generate a “Auth Token” to be used by the containers when they first initiate connection with the Oracle Data Relay and the Index Service. Without a valid
+          auth token the container will not be allowed to connect to the services and retrieve / submit data. This token will periodically be updated to protect against leakage.
+          After connection the container will begin to send price data and completed order data to the oracle data relay for every market it is configured to participate in. The Oracle data relay will retrieve this data and verify against the
+          whitelist each asset the container is submitting data for. If the auth token isn’t allowed to send that instrument data then it will be ignored and a flag will be reported that the container is sending data it isn’t allowed to.
+        </p>
+        <p> No automated mechanism will be in place to disable exchanges has this can cause unforeseen problems. These reports will need to be manually verified and acted on. </p>
+        <p> Once the data is verified allowed the oracle data relay passes the necessary information to the oracles and the index service </p>
+      </article>
+    </main>
+    <aside>
+      <div> <a target="_blank" href="https://project-alkemi.github.io/api-docs/exchange-container-api">Exchange Container Service</a>
+
+      <img src="https://img.shields.io/circleci/build/github/project-alkemi/alkemi-protocol"/></div>
+
+      <div> <a target="_blank" href="https://project-alkemi.github.io/api-docs/dr-discovery-api">Data Relay Discovery Service</a>
+      <img src="https://img.shields.io/circleci/build/github/project-alkemi/alkemi-protocol"/></div>
+      <div> <a target="_blank" href="https://project-alkemi.github.io/api-docs/switchboard-api">Switchboard Service</a>
+      <img src="https://img.shields.io/circleci/build/github/project-alkemi/alkemi-protocol"/></div>
+    </aside>
+  </section>
+  <footer>
+    <p>&copy; 2020 | <a href="https://alkemi.network/" target="_blank"> Alkemi Network </a></p>
+  </footer>
 
 
-  <div class="footer">
-<p> https://alkemi.network</p>
-  </div>
-</div>
 </body>
+
 </html>
